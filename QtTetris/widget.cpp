@@ -362,7 +362,7 @@ void Widget::BlockMove(Direction dir)
             ResetBlock();
             break;
         }
-        //恢复方块上场景
+        //恢复方块上场景,为了清除移动过程中的方块残留
         for(int j=cur_border.lbound;j<=cur_border.rbound;j++)
             game_area[block_pos.pos_y][block_pos.pos_x+j]=0;
         //没有碰撞则下落一格
@@ -377,7 +377,7 @@ void Widget::BlockMove(Direction dir)
         //到左边界或者碰撞不再往左
         if(block_pos.pos_x+cur_border.lbound==0||IsCollide(block_pos.pos_x,block_pos.pos_y,LEFT))
             break;
-        //恢复方块右场景
+        //恢复方块右场景,为了清除移动过程中的方块残留
         for(int i=cur_border.ubound;i<=cur_border.dbound;i++)
             game_area[block_pos.pos_y+i][block_pos.pos_x+3]=0;
         block_pos.pos_x-=1;
@@ -390,7 +390,7 @@ void Widget::BlockMove(Direction dir)
     case RIGHT:
         if(block_pos.pos_x+cur_border.rbound==AREA_COL-1||IsCollide(block_pos.pos_x,block_pos.pos_y,RIGHT))
             break;
-        //恢复方块左场景
+        //恢复方块左场景,为了清除移动过程中的方块残留
         for(int i=cur_border.ubound;i<=cur_border.dbound;i++)
             game_area[block_pos.pos_y+i][block_pos.pos_x]=0;
         block_pos.pos_x+=1;
@@ -404,7 +404,7 @@ void Widget::BlockMove(Direction dir)
         //一格一格下移，直到不能下移
         while(block_pos.pos_y+cur_border.dbound<AREA_ROW-1&&!IsCollide(block_pos.pos_x,block_pos.pos_y,DOWN))
         {
-            //恢复方块上场景
+            //恢复方块上场景,为了清除移动过程中的方块残留
             for(int j=cur_border.lbound;j<=cur_border.rbound;j++)
                 game_area[block_pos.pos_y][block_pos.pos_x+j]=0;
             //没有碰撞则下落一格
