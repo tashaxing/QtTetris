@@ -368,7 +368,7 @@ void Widget::BlockMove(Direction dir)
         //没有碰撞则下落一格
         block_pos.pos_y+=1;
         //方块下降一格，拷贝到场景,注意左右边界
-        for(int i=0;i<4;i++) //必须是0到4
+        for(int i=0;i<4;i++) //必须是0到4而不是边界索引，考虑到旋转后边界重新计算
             for(int j=cur_border.lbound;j<=cur_border.rbound;j++)
                 if(block_pos.pos_y+i<=AREA_ROW-1&&game_area[block_pos.pos_y+i][block_pos.pos_x+j]!=2) //注意场景数组不越界,而且不会擦出稳定的方块
                     game_area[block_pos.pos_y+i][block_pos.pos_x+j]=cur_block[i][j];
